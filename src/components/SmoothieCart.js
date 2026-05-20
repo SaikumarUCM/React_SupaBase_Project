@@ -1,8 +1,27 @@
 
 import { Link } from "react-router-dom"
+import supabase from "../config/SuperbaseClient"
 
 
-const SmoothieCart = ({ smoothie }) => {
+const SmoothieCart = ({ smoothie, onDelete }) => {
+
+
+    const handleDelete = async () => {
+        const { data, error } = await supabase
+            .from('Smoothies')
+            .delete()
+            .eq('id', smoothie.id)
+            .select()
+
+        if (error) {
+            console.log(error)
+        }
+
+        if (data) {
+            console.log(data)
+            onDelete(smoothie.id)
+        }
+    }
 
     return (
         <div className="smoothie-card">
@@ -15,6 +34,7 @@ const SmoothieCart = ({ smoothie }) => {
                 <Link to={'/'+smoothie.id}>
                     <i className="material-icons">edit</i>
                 </Link>
+                <i className="material-icons" onClick={handleDelete}>delete</i>
             </div>
 
         </div>
