@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import supabase from "../config/SuperbaseClient"
 
 
-const SmoothieCart = ({ smoothie, onDelete }) => {
+const SmoothieCart = ({ smoothie, onDelete, orderBy}) => {
 
 
     const handleDelete = async () => {
@@ -12,6 +12,7 @@ const SmoothieCart = ({ smoothie, onDelete }) => {
             .delete()
             .eq('id', smoothie.id)
             .select()
+            .order(orderBy, { ascending: false })
 
         if (error) {
             console.log(error)
