@@ -1,4 +1,4 @@
-# Starter React Project for the Supabase DataBase
+# React Project with the Supabase DataBase
 
 **How to run the starter project:**
 
