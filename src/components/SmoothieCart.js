@@ -1,4 +1,7 @@
 
+import { Link } from "react-router-dom"
+
+
 const SmoothieCart = ({ smoothie }) => {
 
     return (
@@ -8,6 +11,12 @@ const SmoothieCart = ({ smoothie }) => {
             <div className="rating">
                 {smoothie.rating}
             </div>
+            <div className="buttons"> 
+                <Link to={'/'+smoothie.id}>
+                    <i className="material-icons">edit</i>
+                </Link>
+            </div>
+
         </div>
     )
 
