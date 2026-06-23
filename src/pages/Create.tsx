@@ -1,19 +1,16 @@
-
-import supabase from "../config/SuperbaseClient"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-
+import supabase from '../config/SuperbaseClient'
+import { FormEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Create = () => {
-
   const navigate = useNavigate()
 
   const [title, setTitle] = useState('')
   const [method, setMethod] = useState('')
   const [rating, setRating] = useState('')
-  const [formError, setFormError] = useState(null)
+  const [formError, setFormError] = useState<string | null>(null)
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
     if (!title || !method || !rating) {
@@ -23,7 +20,7 @@ const Create = () => {
 
     const { data, error } = await supabase
       .from('Smoothies')
-      .insert([{ title, method, rating }])
+      .insert([{ title, method, rating: Number(rating) }])
       .select()
 
     if (error) {
@@ -37,28 +34,26 @@ const Create = () => {
     }
   }
 
-
-
   return (
     <div className="page create">
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title:</label>
-        <input 
-          type="text" 
+        <input
+          type="text"
           id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
 
         <label htmlFor="method">Method:</label>
-        <textarea 
+        <textarea
           id="method"
           value={method}
           onChange={(e) => setMethod(e.target.value)}
         />
 
         <label htmlFor="rating">Rating:</label>
-        <input 
+        <input
           type="number"
           id="rating"
           value={rating}
